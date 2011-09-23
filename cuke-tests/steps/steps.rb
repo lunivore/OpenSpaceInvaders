@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'capybara'
 require 'capybara/dsl'
-require 'rspec'
 
 include Capybara::DSL
 Capybara.run_server = false
