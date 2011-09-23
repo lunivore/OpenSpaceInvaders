@@ -1,4 +1,5 @@
-var jasmine = require('./index');
+var jasmine = require('./index'),
+        customMatchers = require('./customMatchers');
 var sys = require('sys'),
     Path= require('path');
 
@@ -76,6 +77,7 @@ function onExit() {
   process.exit(exitCode);
 }
 
+customMatchers.loadMatchers();
 jasmine.loadHelpersInFolder(specFolder, new RegExp("[-_]helper\\.(" + extentions + ")$"));
 jasmine.executeSpecsInFolder(specFolder, function(runner, log){
   sys.print('\n');
