@@ -9,11 +9,10 @@ Scenario: ALE sessions
     # Force us to first make the site run
     Then the page title should be "OpenSpaceInvaders"
     And the page headline should be "Open Space Invaders"
+    # Note these are temporary until I can locate the real sessions to use
     And I should be able to see the following slots for "Wednesday"
-        | space_name  | time  |
-        | Pink        | 15:00 |
-        | Black       | 16:00 |
-        | Pink        | 15:00 |
-        | Black       | 16:00 |
-
-    # And the following
+        | space_name  | time  | session         | proposer  |
+        | Pink        | 15:00 | Something       | Jo        |
+        | Pink        | 16:00 | Something else  | Liz       |
+        | Black       | 15:00 | Another session | Marcin    |
+        | Black       | 16:00 | Last one        | Barry     |

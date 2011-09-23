@@ -23,16 +23,23 @@ Then /^the page headline should be "([^"]*)"$/ do |expected_headline|
   find(:xpath, "//h1").should have_content(expected_headline)
 end
 
-Then /^I should be able to see the following slots for "([^"]*)"$/ do |day, spaces|
+def validate_space(day_element, space)
+  day_element.should have_selector('ul.spaces li', :text => space["space_name"])
 
+  space_element = day_element.find('ul.spaces li', :text => space["space_name"])
+  space_element.should have_selector('ul.slots li time', :text => space["time"])
+
+  slot_element = space_element.find('ul.slots li div', :text => space["time"])
+  slot_element.should have_selector('div.proposer', :text => space["proposer"])
+  slot_element.should have_selector('div.session', :text => space["session"])
+end
+
+Then /^I should be able to see the following slots for "([^"]*)"$/ do |day, spaces|
   page.should have_selector('ul.days li', :text => day)
   day_element = find('ul.days li', :text => day)
 
   spaces.hashes.each do |space|
-    day_element.should have_selector('ul.spaces li', :text => space["name"])
-
-    space_element = day_element.find('ul.spaces li', :text => space["name"])
-    space_element.should have_selector('ul.times li', :text => space["time"])
+    validate_space(day_element, space)
   end
 end
 
