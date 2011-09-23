@@ -20,9 +20,20 @@ Then /^the page title should be "([^"]*)"$/ do |expected_title|
   find(:xpath,"//title").should have_content(expected_title)
 end
 
-Then /^I should be able to see the following sessions$/ do |table|
+Then /^the page headline should be "([^"]*)"$/ do |expected_headline|
+  find(:xpath, "//h1").should have_content(expected_headline)
+end
 
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+Then /^I should be able to see the following slots for "([^"]*)"$/ do |day, spaces|
+
+  page.should have_selector('ul.days li', :text => day)
+  day_element = find('ul.days li', :text => day)
+
+  spaces.hashes.each do |space|
+    day_element.should have_selector('ul.spaces li', :text => space["name"])
+
+    space_element = day_element.find('ul.spaces li', :text => space["name"])
+    space_element.should have_selector('ul.times li', :text => space["time"])
+  end
 end
 
