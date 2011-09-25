@@ -4857,7 +4857,7 @@ klass:              do {
     reserve('private');
     reserve('protected');
     reserve('public');
-    reserve('static');
+    // reserve('static'); // breaks express
     reserve('yield');
 
 
