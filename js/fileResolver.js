@@ -1,13 +1,25 @@
-var resolve = function (fileName) {
+"use strict";
 
-    var htmlFileLocation = "/js/html/";
+var resolveHtml = function (fileName) {
 
-    var fileLocation = process.cwd();
+    var htmlFileLocation = "/js/html/", fileLocation = process.cwd();
+
     fileLocation += htmlFileLocation;
     fileLocation += fileName;
     fileLocation += ".html";
 
     return fileLocation;
+};
+
+var resolveStatic = function (fileName) {
+    return process.cwd() + fileName;
+};
+
+var resolve = function (fileName) {
+    if (fileName.indexOf("/static") === 0) {
+        return resolveStatic(fileName);
+    }
+    return resolveHtml(fileName);
 };
 
 exports.resolve = resolve;

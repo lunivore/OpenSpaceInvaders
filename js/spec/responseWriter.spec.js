@@ -1,19 +1,21 @@
-var responseWriter = require('../responseWriter')
+"use strict";
 
-describe("response writer", function() {
+var responseWriter = require('../responseWriter');
+
+describe("response writer", function () {
 
     var fakeResponse;
 
-    beforeEach(function() {
+    beforeEach(function () {
         fakeResponse = {};
-        fakeResponse.writeHead = function() {};
-        fakeResponse.write = function() {};
-        fakeResponse.end = function() {};
+        fakeResponse.writeHead = function () {};
+        fakeResponse.write = function () {};
+        fakeResponse.end = function () {};
     });
 
-    it("should set the content type to text/html", function() {
+    it("should set the content type to text/html", function () {
 
-        var expectedContentType = {"Content-Type": "text/html"}
+        var expectedContentType = {"Content-Type": "text/html"};
         fakeResponse.writeHead = jasmine.createSpy();
 
         responseWriter.write(fakeResponse);
@@ -21,7 +23,7 @@ describe("response writer", function() {
         expect(fakeResponse.writeHead).toHaveBeenCalledWith(jasmine.any(Number), expectedContentType);
     });
 
-    it("should set the HTTP status code correctly", function() {
+    it("should set the HTTP status code correctly", function () {
 
         fakeResponse.writeHead = jasmine.createSpy();
 
@@ -33,7 +35,7 @@ describe("response writer", function() {
 
     });
 
-    it("should set the HTTP status code to 200 if not passed in", function() {
+    it("should set the HTTP status code to 200 if not passed in", function () {
 
         fakeResponse.writeHead = jasmine.createSpy();
 
@@ -42,17 +44,17 @@ describe("response writer", function() {
 
     });
 
-    it("should write the content to the response", function() {
+    it("should write the content to the response", function () {
 
         fakeResponse.write = jasmine.createSpy();
 
-        var expectedContent = "Something something"
+        var expectedContent = "Something something";
         responseWriter.write(fakeResponse, 200, expectedContent);
 
         expect(fakeResponse.write).toHaveBeenCalledWith(expectedContent);
     });
 
-    it("should write a blank string if no content is sent", function() {
+    it("should write a blank string if no content is sent", function () {
 
         fakeResponse.write = jasmine.createSpy();
 
@@ -62,7 +64,7 @@ describe("response writer", function() {
 
     });
 
-    it("should end the response", function() {
+    it("should end the response", function () {
 
         fakeResponse.end = jasmine.createSpy();
 
@@ -70,6 +72,15 @@ describe("response writer", function() {
 
         expect(fakeResponse.end).toHaveBeenCalled();
 
+    });
+
+    it("should set the content type if it's passed in", function () {
+
+        fakeResponse.writeHead = jasmine.createSpy();
+
+        responseWriter.write(fakeResponse, null, null, {"Content-Type" : "text/plain"});
+
+        expect(fakeResponse.writeHead).toHaveBeenCalledWith(jasmine.any(Number), {"Content-Type" : "text/plain"});
     });
 
 });

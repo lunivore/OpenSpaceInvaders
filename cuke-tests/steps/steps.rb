@@ -12,7 +12,7 @@ Given /^the sessions from ALE2011$/ do
 end
 
 When /^I look at the board$/ do
-  visit '/'
+  visit '/board'
 end
 
 Then /^the page title should be "([^"]*)"$/ do |expected_title|

@@ -1,10 +1,13 @@
-var write = function(response, statusCode, content) {
+"use strict";
 
-    statusCode = (statusCode) ? statusCode : 200;
-    content = (content) ? content : "";
+var write = function (response, status, content, params) {
 
-    response.writeHead(statusCode, {"Content-Type" : "text/html"})
-    response.write(content);
+    var statusCode =  status || 200,
+        contentToWrite = content || "",
+        contentType = (params && params["Content-Type"]) ? params["Content-Type"] : "text/html";
+
+    response.writeHead(statusCode, {"Content-Type" : contentType});
+    response.write(contentToWrite);
     response.end();
 
 };
