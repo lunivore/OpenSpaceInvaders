@@ -1,15 +1,20 @@
 "use strict";
+/* jslint node */
 
-var http = require('http'),
-    htmlLoader = require('./htmlLoader'),
-    responseLoader = require('./responseLoader');
+var express = require('express');
+
+var app = express.createServer();
+
+app.configure(function () {
+	app.use(express.static(__dirname + '/static'));
+		app.use(express.errorHandler({
+		dumpExceptions: true,
+		showStack: true
+	}));
+});
 
 var start = function () {
-    var onRequest = function (request, response) {
-        responseLoader.load(request.url, response, htmlLoader);
-
-    };
-    http.createServer(onRequest).listen(8019);
+    app.listen(8019);
 };
 
 exports.start = start;
