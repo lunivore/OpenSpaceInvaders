@@ -13,6 +13,10 @@ app.configure(function () {
 	}));
 });
 
+app.get('/board', function(req, res) {
+	res.sendfile(__dirname + '/static/board.html');
+});
+
 var start = function () {
     app.listen(8019);
 };
