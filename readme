@@ -6,4 +6,6 @@ Requirements:
 
 To run jasmine tests, use run-js-tests.sh
 
+To run cucumber tests, use: cucumber cuke-tests
+
 To run the web server, use run-node.sh and then view localhost:8019/board.html in a browser. 
